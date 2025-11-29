@@ -13,7 +13,6 @@ with open('params.yaml', 'r') as f:
 prepare_params = params['prepare']
 
 # Загружаем данные
-print('Загрузка данных...')
 df = pd.read_csv('data/raw/wine.csv')
 
 # Разделяем на признаки и целевую переменную
@@ -21,7 +20,6 @@ X = df.drop('target', axis=1)
 y = df['target']
 
 # Разделяем на train/test
-print(f'Разделение данных (test_size={prepare_params[\"test_size\"]})...')
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, 
     test_size=prepare_params['test_size'],
@@ -30,7 +28,6 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # Нормализация данных
-print('Нормализация данных...')
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
@@ -63,10 +60,7 @@ metadata = {
 with open('data/processed/metadata.json', 'w') as f:
     json.dump(metadata, f, indent=2)
 
-print('\n' + '='*60)
-print('Подготовка завершена!')
-print('='*60)
-print(f'Train samples: {metadata[\"train_samples\"]}')
-print(f'Test samples: {metadata[\"test_samples\"]}')
-print(f'Features: {metadata[\"n_features\"]}')
-print(f'Classes: {metadata[\"n_classes\"]}')
+print(f'Train samples: {metadata["train_samples"]}')
+print(f'Test samples: {metadata["test_samples"]}')
+print(f'Features: {metadata["n_features"]}')
+print(f'Classes: {metadata["n_classes"]}')
