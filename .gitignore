@@ -1,0 +1,15 @@
+﻿# Python
+*.pyc
+__pycache__/
+.ipynb_checkpoints/
+
+# MLflow
+mlflow.db
+mlruns/
+
+# Other
+.DS_Store
+venv/
+*.pkl
+*.png
+classification_report.txt
