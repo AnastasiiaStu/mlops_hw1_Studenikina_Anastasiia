@@ -19,7 +19,6 @@ with open('params.yaml', 'r') as f:
 train_params = params['train']
 
 # Загружаем подготовленные данные
-print('Загрузка подготовленных данных...')
 X_train = pd.read_csv('data/processed/X_train.csv')
 X_test = pd.read_csv('data/processed/X_test.csv')
 y_train = pd.read_csv('data/processed/y_train.csv').values.ravel()
@@ -36,16 +35,14 @@ print(f'Test samples: {len(X_test)}')
 mlflow.set_tracking_uri('sqlite:///mlflow.db')
 mlflow.set_experiment('wine_classification')
 
-# Начинаем эксперимент MLflow
+# Эксперимент MLflow
 with mlflow.start_run():
     
     # Логируем параметры
     mlflow.log_params(train_params)
     mlflow.log_params(metadata)
     
-    # Создаем модель
-    print(f'\nОбучение модели: {train_params[\"model_type\"]}')
-    
+    # Создаем модель  
     if train_params['model_type'] == 'RandomForest':
         model = RandomForestClassifier(
             n_estimators=train_params['n_estimators'],
@@ -61,8 +58,6 @@ with mlflow.start_run():
     
     # Обучаем модель
     model.fit(X_train, y_train)
-    
-    # Делаем предсказания
     y_train_pred = model.predict(X_train)
     y_test_pred = model.predict(X_test)
     
@@ -109,11 +104,3 @@ with mlflow.start_run():
     with open('classification_report.txt', 'w') as f:
         f.write(report)
     mlflow.log_artifact('classification_report.txt')
-    
-    print('\n' + '='*50)
-    print('Classification Report:')
-    print(report)
-    print('='*50)
-    
-    print('\nМодель обучена и сохранена!')
-    print('Артефакты залогированы в MLflow')

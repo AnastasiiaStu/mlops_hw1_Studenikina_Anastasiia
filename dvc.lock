@@ -1,0 +1,77 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+    - path: data/raw/wine.csv
+      hash: md5
+      md5: e6dccd29b15c08636f50bd2c0fd80a6a
+      size: 12440
+    - path: src/prepare.py
+      hash: md5
+      md5: 75760954917b1d2729e9689d7a14673f
+      size: 2010
+    params:
+      params.yaml:
+        prepare.random_state: 42
+        prepare.test_size: 0.2
+    outs:
+    - path: data/processed/X_test.csv
+      hash: md5
+      md5: ddc709d07172c5a3e3c0ef4d9e97d342
+      size: 9371
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 64ef0878df533f5ccc082678cc5a9776
+      size: 36445
+    - path: data/processed/metadata.json
+      hash: md5
+      md5: 4ff5fcaf8a7fb08d59615a7e692d187a
+      size: 91
+    - path: data/processed/scaler.pkl
+      hash: md5
+      md5: 70a915d9b0c03897d688ed1e330bcad7
+      size: 1068
+    - path: data/processed/y_test.csv
+      hash: md5
+      md5: 8a14778d486bbab3b3835a726147ae59
+      size: 116
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 1c463bd94cfe428bd306a4e0596c7896
+      size: 434
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/processed/X_test.csv
+      hash: md5
+      md5: ddc709d07172c5a3e3c0ef4d9e97d342
+      size: 9371
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 64ef0878df533f5ccc082678cc5a9776
+      size: 36445
+    - path: data/processed/y_test.csv
+      hash: md5
+      md5: 8a14778d486bbab3b3835a726147ae59
+      size: 116
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 1c463bd94cfe428bd306a4e0596c7896
+      size: 434
+    - path: src/train.py
+      hash: md5
+      md5: 248cacd09883fd19c8150e645e338261
+      size: 3626
+    params:
+      params.yaml:
+        train:
+          model_type: RandomForest
+          n_estimators: 100
+          max_depth: 10
+          random_state: 42
+    outs:
+    - path: model.pkl
+      hash: md5
+      md5: 6cbac0194c6b1b522395f982c91a41e4
+      size: 199676
