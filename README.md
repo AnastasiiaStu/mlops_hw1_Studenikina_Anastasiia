@@ -6,31 +6,18 @@
 mlops\_hw1\_Studenikina\_Anastasiia/
 
 ├── data/
-
 │   ├── raw/
-
 │   │   ├── .gitignore
-
 │   │   └── wine.csv.dvc
-
 │   └── processed/
-
 │       └── .gitignore
-
 ├── src/
-
 │   ├── prepare.py
-
 │   └── train.py
-
 ├── dvc.yaml
-
 ├── dvc.lock
-
 ├── params.yaml
-
 ├── requirements.txt
-
 └── README.md
 
 ```
@@ -93,5 +80,6 @@ dvc repro
 
 ## Ссылка на итоговый репозиторий - на всякий случай еще раз
 https://github.com/AnastasiiaStu/mlops\_hw1\_Studenikina\_Anastasiia
+
 
 
